@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
    path('', views.index, name="index"),
-   path('variable', views.variable, name="variable"),
-   path('random', views.randomnumber, name="random"),
-   path('ex2', views.loop, name="ex2"),
+   path('all_books/', views.view_all_books, name="all_books"),
+   path('single_book/<int:book_id>/', views.view_single_book, name="single_book"),
+   path('books_by_category/<str:category>/', views.view_books_by_category, name="books_by_category"),
 ]

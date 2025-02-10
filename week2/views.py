@@ -1,6 +1,6 @@
 from django.shortcuts import render
-import random
-
+from .models import *
+from django.shortcuts import get_object_or_404
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -8,17 +8,14 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'index.html')
 
-def variable(request):
-   x = 5 # create a variable called x and give it a value
-   y = 10
-   # pass the variable x to the template variable.html with the name 'x'
-   return render(request, 'variable.html', {'x': x, 'y': y })
+def view_all_books(request):
+   all_books = Book.objects.all()
+   return render(request, 'all_books.html', {'books': all_books})
 
+def view_single_book(request, book_id):
+   single_book = get_object_or_404(Book, id=book_id)
+   return render(request, 'single_book.html', {'book': single_book})
 
-def randomnumber(request):
-   x = random.randint(0,100) # generate a random number between 0 and 100
-   return render(request,'random.html',{'x':x})
-
-def loop(request):
-    nums = list(range(1, 31))
-    return render(request, 'ex2.html', {'nums': nums})
+def view_books_by_category(request, category):
+   books_by_category = Book.objects.filter(category=category)
+   return render(request, 'books_by_category.html', {'books': books_by_category})
